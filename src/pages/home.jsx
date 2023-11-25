@@ -67,27 +67,27 @@ const Home = () => {
                         <h4 className='font-bold text-[18px]'>New Customer</h4>
                         <div className="flex gap-2">
                           <p className='text-[16px] text-[#656673] font-light'>Quickly create profiles for your customers!</p>
-                          <button className=' shrink-0 w-[40px] h-[40px] bg-primary rounded-full'>+</button>
+                          <button className=' shrink-0 w-[40px] h-[40px] bg-primary rounded-full text-white text-[28px]'>+</button>
                         </div>
                       </div>
                     </div>
                     <div className="w-full bg-white rounded-lg px-3 py-6">
                       <img src={userOrange} alt="" />
                       <div className="mt-12">
-                        <h4 className='font-bold text-[18px]'>New Customer</h4>
+                        <h4 className='font-bold text-[18px]'>Just made a sale?</h4>
                         <div className="flex gap-2">
-                          <p className='text-[16px] text-[#656673] font-light'>Quickly create profiles for your customers!</p>
-                          <button className=' shrink-0 w-[40px] h-[40px] bg-primary rounded-full'>+</button>
+                          <p className='text-[16px] text-[#656673] font-light'>Quickly record transactions!</p>
+                          <button className=' shrink-0 w-[40px] h-[40px] bg-primary rounded-full text-white text-[28px]'>+</button>
                         </div>
                       </div>
                     </div>
                     <div className="w-full bg-white rounded-lg px-3 py-6">
                       <img src={userOrange} alt="" />
                       <div className="mt-12">
-                        <h4 className='font-bold text-[18px]'>New Customer</h4>
+                        <h4 className='font-bold text-[18px]'>Get Paid</h4>
                         <div className="flex gap-2">
-                          <p className='text-[16px] text-[#656673] font-light'>Quickly create profiles for your customers!</p>
-                          <button className=' shrink-0 w-[40px] h-[40px] bg-primary rounded-full'>+</button>
+                          <p className='text-[16px] text-[#656673] font-light'>Send an invoice to a owing customer!</p>
+                          <button className=' shrink-0 w-[40px] h-[40px] bg-primary rounded-full text-white text-[28px]'>+</button>
                         </div>
                       </div>
                     </div>
