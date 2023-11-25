@@ -1,5 +1,5 @@
 import { logoBlue, home, userOctagon, transaction, crypto, create, gear } from "../assets/images/images";
-
+import { Link } from "react-router-dom";
 const Sidebar = () => {
 
     const shadow = '0px 1px 4px 2px #32475C05, 0px 2px 6px 1px #32475C0A, 0px 1px 6px 2px #32475C0F' 
@@ -10,15 +10,27 @@ const Sidebar = () => {
             <h2 className="text-[#565560] font-bold text-[20px]">iTrack</h2>
         </div>
         <ul className="w-full px-6 py-4 space-y-2">
-            <li className="flex items-center text-[#8347E7] bg-[#F5EDFF] rounded-lg px-5 py-3"><img src={home} alt="" /><span>Dashboard</span></li>
-            <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={userOctagon} alt="" /><span>Customers</span></li>
-            <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={crypto} alt="" /><span>Transactions</span></li>
-            <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={transaction} alt="" /><span>Invoices</span></li>
-            <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={create} alt="" /><span>Create New</span></li>
+            <Link to="/">
+                <li className="flex items-center text-[#8347E7] bg-[#F5EDFF] rounded-lg px-5 py-3"><img src={home} alt="" /><span>Dashboard</span></li>
+            </Link>
+            <Link to="/customers">
+                <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={userOctagon} alt="" /><span>Customers</span></li>
+            </Link>
+            <Link to="/transactions">
+                <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={crypto} alt="" /><span>Transactions</span></li>
+            </Link>
+            <Link to='/invoices'>
+                <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={transaction} alt="" /><span>Invoices</span></li>
+            </Link>
+            <Link to='/create-new'>
+                <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={create} alt="" /><span>Create New</span></li>
+            </Link>
         </ul>
         <ul className="w-full px-6 py-4 space-y-2">
             <h4 className="uppercase text-[12px] font-bold text-[#32475C61] px-5">Settings</h4>
-            <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={gear} alt="" /><span>Manage Settings</span></li>
+            <Link to='/settings'>  
+                <li className="flex items-center text-[#565560] gap-x-2 px-5 py-3"><img src={gear} alt="" /><span>Manage Settings</span></li>
+            </Link>
         </ul>
     </div> );
 }
