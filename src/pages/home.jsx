@@ -5,6 +5,7 @@ import { scribble, upTrend, userOrange } from '../assets/images/images';
 // import  from '@mui/material';
 import { useState } from 'react';
 import TabPanel from "../components/tabpanel"
+import useLocalStorage from '../utils/useLocalstorage';
 
 const Home = () => {
 

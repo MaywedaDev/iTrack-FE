@@ -1,32 +1,91 @@
 import { alert1, arrowright, google, shapes, woman1 } from "../assets/images/images";
 import { TextField } from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
+import { useMutation } from "react-query";
+import { Link, useNavigate } from "react-router-dom";
 
 
-const inputStyles = {size: "small", color: "primary"}
+const inputStyles = {color: "primary"}
 const Signup = () => {
+
+    const navigate = useNavigate()
+
+    const [error, setError] = useState({
+        status: null,
+        message: null
+    })
+    const [success, setSuccess] = useState(false)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        handleLogin()
+    }
+    
+    const {isLoading, mutate: handleLogin} = useMutation(async () => {
+        return await axios.post("https://itrack-server.vercel.app/itrack/create-user", {
+            ...fields
+        })
+    },{
+        onSuccess: (res) => {
+            console.log(res)
+            if(res.status == 203){
+                setError({message: res.data.message, status:true})
+            }
+            else{
+                setError({message: null, status: null})
+                setTimeout(() => navigate("/sign-in"), 1500)
+                setSuccess(true)
+            }
+        },
+        onError: (err) => {
+            console.log(err)
+            setError({message: err.message, status:true})
+        }
+    })
+
+    const [fields, setFields] = useState({
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: ""
+    })
+
+    const handleChange = event => {
+        setFields({
+          ...fields,
+          [event.target.name]: event.target.value,
+        });
+      };
+
+
     return ( 
     <div className="w-full flex">
         <div className="w-full p-16 flex flex-col min-h-screen">
             <a className="inline-flex gap-x-2 items-center" href="/"><img src={arrowright} alt="" /><span className="text-[16px] text-[#2B2A30]">Go back</span></a>
-            <div className="mt-24 my-auto w-full space-y-6">
-                <h3 className="text-[#080808] text-[28px] font-bold">Let’s get started!</h3>
-                <div className="grid grid-cols-2 gap-5">
-                    <TextField {...inputStyles} label="First name"/>
-                    <TextField {...inputStyles} label="Last name"/>
-                    <TextField {...inputStyles} className="col-span-2" label="Your Email"/>
-                    <TextField {...inputStyles} type="password" className="col-span-2" label="Create a password"/>
+            <form onSubmit={handleSubmit} className="w-full">
+                <div className="mt-24 my-auto w-full space-y-6">
+                    <h3 className="text-[#080808] text-[28px] font-bold">Let’s get started!</h3>
+                    <div className="grid grid-cols-2 gap-5">
+                        <TextField name="firstName" {...inputStyles} onChange={handleChange} value={fields.firstName} label="First name"/>
+                        <TextField name="lastName" {...inputStyles} onChange={handleChange} value={fields.lastName} label="Last name"/>
+                        <TextField name="email" {...inputStyles} onChange={handleChange} value={fields.email} className="col-span-2" label="Your Email"/>
+                        <TextField name="password" {...inputStyles} onChange={handleChange} value={fields.password} type="password" className="col-span-2" label="Create a password"/>
+                    </div>
+                    <div className="flex items-center gap-x-2">
+                        <input type="checkbox" name="" id="policy" />
+                        <label className="text-[16px] text-[#50555E]" htmlFor="policy">I agree to iTrack’s <span className="text-primary">Privacy Policy</span>, and <span className="text-primary">Terms and conditions</span>.</label>
+                    </div>
+                    <button disabled={isLoading} className="text-white w-full bg-primary p-3 rounded">Get started</button>
+                    {error.status && <p className="text-red-700 text-[16px]">{error.message}</p>}
+                    {success && <p className="text-green-700 text-[16px]">User succesfully created</p>}
+                    {/* <p className="text-center text-[18px]">Or</p>
+                    <div className="mx-auto flex items-center gap-x-2 w-fit"><img src={google} alt="" /><span className="inline-block text-[16px]">Login with your Google Account</span></div> */}
                 </div>
-                <div className="flex items-center gap-x-2">
-                    <input type="checkbox" name="" id="policy" />
-                    <label className="text-[16px] text-[#50555E]" htmlFor="policy">I agree to iTrack’s <span className="text-primary">Privacy Policy</span>, and <span className="text-primary">Terms and conditions</span>.</label>
-                </div>
-                <button className="text-white w-full bg-primary p-3 rounded">Get started</button>
-                <p className="text-center text-[18px]">Or</p>
-                <div className="mx-auto flex items-center gap-x-2 w-fit"><img src={google} alt="" /><span className="inline-block text-[16px]">Login with your Google Account</span></div>
-            </div>
+            </form>
         </div>
         <div className="w-[500px] bg-[#ECE3FE] py-16 px-12 flex flex-col min-h-screen relative">
-            <a className="inline-flex gap-x-2 items-center ml-auto text-primary underline" href="/">Sign in</a>
+            <Link className="inline-flex gap-x-2 items-center ml-auto text-primary underline" to="/sign-in">Sign in</Link>
             <div className="my-auto mt-16 relative z-20">
                 <img className="w-full object-scale-down" src={woman1} alt="" />
                 <img src={alert1} alt="" className="absolute -right-[48px] top-[50%]" />

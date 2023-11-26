@@ -1,9 +1,16 @@
 import { Card, CardHeader, Select, MenuItem } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import axios from "axios";
+import useLocalStorage from "../utils/useLocalstorage";
+import { useEffect } from "react";
 const Customers = () => {
 
+    const navigate = useNavigate()
+
     // const location = useLocation()
+    const user = useLocalStorage("user")
     const columns = [
         {field: "customer", headerName: "CUSTOMER", flex: 1},
         {field: "phone", headerName: "PHONE", flex: 1},
@@ -12,6 +19,17 @@ const Customers = () => {
         {field: "totalDebt", headerName: "TOTAL DEBT", flex: 1},
         {field: "action", headerName: "ACTION", flex: 1}
     ]
+
+    const {isLoading, mutate: getCustomers} = useMutation( async() => {
+        axios.post('https://itrack-server.vercel.app/itrack/customers', {sellerEmail: user.email})
+    },{
+        onSuccess: (res) => {
+            console.log(res)
+        },
+        onError: err => {
+            console.log(err)
+        }
+    })
 
     const rows = [
         {id: 1, customer: "Benedetto Rossiter", phone: "0903 457 9801", email: "janedoe @gmail.com", address: "House 9, Olaseinde street.", totalDebt: "₦ 500 000", action: "work"},
@@ -25,6 +43,10 @@ const Customers = () => {
         {id: 9, customer: "Brockie Myles", phone: "0903 457 9801", email: "janedoe @gmail.com", address: "House 9, Olaseinde street.", totalDebt: "₦ 500 000", action: "work"}
     ]
 
+    useEffect( () => {
+        getCustomers()
+    }, [])
+
     return ( <>
         <div className="p-4 w-full">
             <Card>
@@ -32,7 +54,7 @@ const Customers = () => {
                 <div className="px-4 w-full">
                     <div className="my-4 flex gap-6">
                         <input type="text" className="p-3 rounded border border-[#DCDBE0] w-full max-w-[350px]" placeholder="Search Customers"/>
-                        <button className="px-5 w-fit py-3 bg-primary rounded-lg text-white mt-auto ml-auto">Create Customer</button>
+                        <button onClick={() => navigate("create")} className="px-5 w-fit py-3 bg-primary rounded-lg text-white mt-auto ml-auto">Create Customer</button>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"

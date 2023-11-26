@@ -10,6 +10,7 @@ import Settings from './pages/settings'
 import CreateNew from './pages/createNew'
 import Transactions from './pages/transactions'
 import Customers from './pages/customers'
+import CreateCustomer from './pages/createCustomer'
 
 
 const theme = createTheme({
@@ -32,8 +33,9 @@ function App() {
         <Route path='sign-up' element={<Signup />} />
         <Route path='sign-in' element={<Signin />} />
         <Route path='customers' element={<Customers />} />
+        <Route path="customers/create" element={<CreateCustomer />} />
         <Route path='invoices' element={<Invoices />} />
-        <Route path='settings' element={<Settings />} />
+        <Route path='setting' element={<Settings/>} />
         <Route path='create-new' element={<CreateNew />} />
         <Route path='transactions' element={<Transactions />} />
       </Route>
