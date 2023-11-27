@@ -1,12 +1,12 @@
 import { man1,arrowright, alert1, shapes } from "../assets/images/images";
-import { TextField } from "@mui/material";
+import { InputAdornment, TextField, IconButton } from "@mui/material";
 import { useMutation } from "react-query";
 import api from "../api";
 import axios from "axios";
 import { useState } from "react";
 import useLocalStorage from "../utils/useLocalstorage";
 import { Link, useNavigate } from "react-router-dom";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 
 
@@ -20,6 +20,9 @@ const Signin = () => {
 
     const navigate = useNavigate()
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [error, setError] = useState({
         status: null,
         message: null
@@ -72,7 +75,7 @@ const Signin = () => {
                     <p className="text-[#292E32] font-light text-[16px]">Sign in to continue to your account</p>
                     <div className="grid grid-cols-2 gap-5">
                         <TextField {...inputStyles} name="email" className="col-span-2" value={fields.email} onChange={handleChange} label="Your Email"/>
-                        <TextField {...inputStyles} name="password" value={fields.password} onChange={handleChange} type="password" className="col-span-2" label="Enter password"/>
+                        <TextField {...inputStyles} InputProps={{endAdornment: <InputAdornment><IconButton onClick={handleClickShowPassword}>{showPassword ? <Visibility />: <VisibilityOff />}</IconButton></InputAdornment>}} name="password" value={fields.password} onChange={handleChange} type={showPassword ? "text": "password"} className="col-span-2" label="Enter password"/>
                     </div>
                     <div className="flex items-center gap-x-2">
                         <input type="checkbox" name="" id="policy" />

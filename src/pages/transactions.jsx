@@ -1,7 +1,32 @@
 import { Card, CardHeader, Select, MenuItem } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useMutation } from "react-query";
+import useLocalStorage from "../utils/useLocalstorage";
+import axios from "axios";
 
 const Transactions = () => {
+
+    const navigate = useNavigate()
+
+    // const location = useLocation()
+    const user = useLocalStorage("user")
+
+    const {isLoading, mutate: getCustomers} = useMutation( async() => {
+        axios.post('https://itrack-server.vercel.app/itrack/transactions', {sellerEmail: user.email})
+    },{
+        onSuccess: (res) => {
+            console.log(res)
+        },
+        onError: err => {
+            console.log(err)
+        }
+    })
+
+    useEffect( () => {
+        getCustomers()
+    }, [])
 
     const columns = [
         {field: "id", headerName: "#ID", flex: 1},

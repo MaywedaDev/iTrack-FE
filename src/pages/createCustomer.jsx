@@ -105,6 +105,8 @@ const CreateCustomer = () => {
                     <button className="px-5 w-fit py-2 bg-primary rounded-lg text-white">Save</button>
                     <button className="px-5 w-fit py-2 border border-[#FF4D4980] rounded-lg text-[#DC2626]">Cancel</button>
                 </div>
+                {error.status && <p className="text-red-700 text-[16px]">{error.message}</p>}
+                {success && <p className="text-success text-[16px]">Successfully created customer</p>}
                 </form>
                 
             </Card>

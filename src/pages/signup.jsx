@@ -1,13 +1,18 @@
 import { alert1, arrowright, google, shapes, woman1 } from "../assets/images/images";
-import { TextField } from "@mui/material";
+import { InputAdornment, TextField, IconButton } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 
 const inputStyles = {color: "primary"}
 const Signup = () => {
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const navigate = useNavigate()
 
@@ -70,7 +75,7 @@ const Signup = () => {
                         <TextField name="firstName" {...inputStyles} onChange={handleChange} value={fields.firstName} label="First name"/>
                         <TextField name="lastName" {...inputStyles} onChange={handleChange} value={fields.lastName} label="Last name"/>
                         <TextField name="email" {...inputStyles} onChange={handleChange} value={fields.email} className="col-span-2" label="Your Email"/>
-                        <TextField name="password" {...inputStyles} onChange={handleChange} value={fields.password} type="password" className="col-span-2" label="Create a password"/>
+                        <TextField name="password" InputProps={{endAdornment: <InputAdornment><IconButton onClick={handleClickShowPassword}>{showPassword ? <Visibility />: <VisibilityOff />}</IconButton></InputAdornment>}} {...inputStyles} onChange={handleChange} value={fields.password} type={showPassword ? "text" : "password"} className="col-span-2" label="Create a password"/>
                     </div>
                     <div className="flex items-center gap-x-2">
                         <input type="checkbox" name="" id="policy" />

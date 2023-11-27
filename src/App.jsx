@@ -35,7 +35,7 @@ function App() {
         <Route path='customers' element={<Customers />} />
         <Route path="customers/create" element={<CreateCustomer />} />
         <Route path='invoices' element={<Invoices />} />
-        <Route path='setting' element={<Settings/>} />
+        <Route path='settings' element={<Settings/>} />
         <Route path='create-new' element={<CreateNew />} />
         <Route path='transactions' element={<Transactions />} />
       </Route>

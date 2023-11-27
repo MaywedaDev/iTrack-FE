@@ -1,23 +1,24 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./sidebar"
 import Nav from "./nav"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import { useLayoutEffect, useEffect } from "react";
 import useLocalStorage from "../utils/useLocalstorage";
+import ProtectedRoute from "./protected";
 
 
 const Layout = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    useLayoutEffect(() => {
-        if(!useLocalStorage("user") && checkIfProtectedRoute(location.pathname)){
-            navigate("/sign-in")
-        }
-    }, [location])
+    // useLayoutEffect(() => {
+    //     if(!useLocalStorage("user") && checkIfProtectedRoute(location.pathname)){
+    //         navigate("/sign-in")
+    //     }
+    // }, [location])
 
     return ( <>
-    {checkIfProtectedRoute(location.pathname) ? <>
+    {checkIfProtectedRoute(location.pathname) ? <ProtectedRoute>
         <div className='min-h-screen w-full flex bg-body'>
             <Sidebar />
             <div className="w-full ml-[260px] min-h-screen">
@@ -25,7 +26,7 @@ const Layout = () => {
                 <Outlet />
             </div>
         </div>
-    </> : <Outlet />}
+    </ProtectedRoute> : <Outlet />}
     </> );
 }
 
